@@ -14,6 +14,8 @@
  * to cleanly shut down before the process exits.
  */
 
+// TODO(rictic): convert this library to promises.
+
 /**
  * The type of a cleankill interrupt handler.
  */
