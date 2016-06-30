@@ -36,16 +36,11 @@ export function onInterrupt(handler: Handler): void {
  */
 export async function promiseAllStrict(
       promises: Promise<any>[]): Promise<void> {
-  let error: any = null;
-  for (const promise of promises) {
-    try {
-      await promise;
-    } catch (e) {
-      error = error || e;
-    }
-  }
-  if (error) {
-    throw error;
+  let errors = await Promise.all(
+      promises.map((p) => p.then(() => null, (e) => e)));
+  let firstError = errors.find((e) => e != null);
+  if (firstError) {
+    throw firstError;
   }
 }
 
